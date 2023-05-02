@@ -5,7 +5,7 @@ async function parseDocument(buffer) {
   const data = await mammoth.convertToHtml({ buffer });
   const dom = new JSDOM(data.value);
   const htmlDoc = dom.window.document;
-  const body = htmlDoc.querySelector("body").innerHTML;
+
   const table = htmlDoc.querySelector("table");
   const paymentInfo = table
     ?.querySelectorAll("tr")[1]
@@ -37,7 +37,7 @@ async function parseDocument(buffer) {
       })
       .join("|");
 
-  return { htmlDoc, paymentInfo: result };
+  return { paymentInfo: result };
 }
 
 module.exports = parseDocument;

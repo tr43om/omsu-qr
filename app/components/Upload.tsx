@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { downloadPDF } from "../utils";
 
 const Upload: React.FC = () => {
   const [parsedText, setParsedText] = useState("");
   const [qr, setQr] = useState<Buffer>();
+  const [base64PDF, setBase64PDF] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,10 +21,14 @@ const Upload: React.FC = () => {
       const data = await res.json();
       console.log(data);
 
-      // setParsedText(data.html);
+      setBase64PDF(data.pdf);
 
       setQr(Buffer.from(data.qr.svg));
     }
+  };
+
+  const handleDownload = async () => {
+    await downloadPDF(base64PDF, "example.pdf");
   };
 
   return (
@@ -31,6 +37,7 @@ const Upload: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <input type="file" name="file" accept=".doc, .docx" required />
         <button type="submit">Upload</button>
+        {base64PDF && <button onClick={handleDownload}>Download PDF</button>}
       </form>
       {/* {parsedText && <div dangerouslySetInnerHTML={{ __html: parsedText }} />} */}
     </div>
