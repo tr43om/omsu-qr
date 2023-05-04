@@ -1,0 +1,21 @@
+
+
+# General 
+.vscode
+.gitignore
+README.md
+.dockerignore
+.git
+
+
+
+# dependencies
+/node_modules
+
+
+# next.js
+.next
+.cache
+
+
+

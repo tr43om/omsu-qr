@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  app:
+    restart: always
+    container_name: omsu_qr_app
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: .
+    command: node api/server.js
+    volumes:
+      - ./api:/app/api
+      - ./views:/app/views
+    ports:
+      - 3001:3001
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: omsu_qr_db
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./data:/var/lib/mysql

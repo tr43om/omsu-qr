@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .text-omsu {
+    background-clip: text;
+    background-image: linear-gradient(to right, #ef4444, #f59e0b);
+    color: transparent;
+  }
+
+  .color-omsu {
+    background-image: linear-gradient(to right, #ef4444, #f59e0b);
+  }
+
+  .bg-omsu {
+    background-image: linear-gradient(to right, #ef4444, #f59e0b);
+  }
+}

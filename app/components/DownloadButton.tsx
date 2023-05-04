@@ -1,29 +1,23 @@
 import { TbFileDownload } from "react-icons/tb";
 
 type DownloadButtonProps = {
-  isDisabled: boolean;
   download: () => void;
   label: string;
+  disabled: boolean;
 };
 
-const DownloadButton = ({
-  isDisabled,
-  download,
-  label,
-}: DownloadButtonProps) => {
+const DownloadButton = ({ download, label, disabled }: DownloadButtonProps) => {
   return (
-    <li>
-      <button
-        type="button"
-        onClick={download}
-        disabled={isDisabled}
-        className={`${isDisabled && "cursor-not-allowed "} ${
-          !isDisabled && "cursor-pointer"
-        } `}
-      >
-        {label}
-      </button>
-    </li>
+    <button
+      type="button"
+      onClick={download}
+      disabled={disabled}
+      className={`btn-ghost btn-sm text-red-500 font-bold ${
+        disabled && "text-red-200"
+      }`}
+    >
+      {label}
+    </button>
   );
 };
 

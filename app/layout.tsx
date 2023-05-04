@@ -15,7 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className="container max-w-lg mx-auto " data-theme="light">
+    <html
+      lang="ru"
+      className="container max-w-4xl mx-auto px-4"
+      data-theme="light"
+    >
       <body className={`${inter.className} min-h-screen items-center grid`}>
         {children}
       </body>

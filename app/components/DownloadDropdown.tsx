@@ -10,15 +10,14 @@ const DownloadDropdown = ({ children }: DownloadDropdownProps) => {
   const [opened, setOpened] = useState(false);
   return (
     <div
-      className="dropdown dropdown-hover"
+      className="dropdown dropdown-hover  "
       onMouseEnter={() => setOpened(true)}
       onMouseLeave={() => setOpened(false)}
     >
-      <label tabIndex={0} className="btn m-1 gap-2">
+      <label tabIndex={0} className="btn btn-sm m-1 gap-1 bg-omsu border-0">
         <TbFileDownload className="h-6 w-6 text-white" />
-        Скачать
         <TbChevronDown
-          className={`h-6 w-6 text-white ${opened && "rotate-180"}`}
+          className={`h-4 w-4 text-white ${opened && "rotate-180"}`}
         />
       </label>
       <ul
