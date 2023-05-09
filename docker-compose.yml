@@ -1,36 +1,46 @@
+# docker-compose.yml
 version: "3"
 
 services:
-  app:
+  backend:
     restart: always
-    container_name: omsu_qr_app
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    container_name: omsu_qr_back
     build:
-      context: .
-    command: node api/server.js
+      context: ./backend
+      dockerfile: backend.dockerfile
+    environment:
+      MYSQL_DATABASE: \${MYSQL_DATABASE}
+      MYSQL_USER: \${MYSQL_USER}
+      MYSQL_PASSWORD: \${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD}
+
     volumes:
-      - ./api:/app/api
-      - ./views:/app/views
+      - ./backend:./backend
     ports:
-      - 3001:3001
+      - 8000:8000
+
+  frontend:
+    restart: always
+    container_name: omsu_qr_front
+    build:
+      context: ./frontend
+      dockerfile: frontend.dockerfile
+    volumes:
+      - ./frontend:./frontend
+    ports:
+      - 3000:3000
   db:
     image: mysql:5.7
     restart: always
     container_name: omsu_qr_db
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: \${MYSQL_DATABASE}
+      MYSQL_USER: \${MYSQL_USER}
+      MYSQL_PASSWORD: \${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD}
     ports:
-      - '3306:3306'
+      - "3306:3306"
     expose:
-      - '3306'
+      - "3306"
     volumes:
-      - ./data:/var/lib/mysql
+      - ./backend/data:/var/lib/mysql

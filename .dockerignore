@@ -10,12 +10,13 @@ README.md
 
 
 # dependencies
+node_modules/
 /node_modules
 
 
 # next.js
-.next
-.cache
+frontend/.next/
+frontend/.cache/
 
 
 

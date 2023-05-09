@@ -34,3 +34,85 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```
+omsu-qr
+├─ .dockerignore
+├─ .env
+├─ .gitignore
+├─ backend
+│  ├─ decs.d.ts
+│  ├─ package.json
+│  ├─ src
+│  │  ├─ constants
+│  │  │  ├─ index.ts
+│  │  │  ├─ monthNames.ts
+│  │  │  └─ omsuPaymentInfo.ts
+│  │  ├─ index.ts
+│  │  ├─ services
+│  │  │  ├─ docxToHtml.ts
+│  │  │  ├─ generatePDF.ts
+│  │  │  ├─ generateQR.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ parseDocument.ts
+│  │  │  └─ uploadDocument.ts
+│  │  ├─ types
+│  │  │  └─ index.ts
+│  │  ├─ utils
+│  │  │  ├─ attachQrToDocument.ts
+│  │  │  ├─ createPrefixedRegex.ts
+│  │  │  ├─ extractPaymentInfo.ts
+│  │  │  ├─ extractTextFromBuffer.ts
+│  │  │  ├─ formatPaymentInfo.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ monthNameToNumber.ts
+│  │  └─ views
+│  │     ├─ index.ejs
+│  │     ├─ login.ejs
+│  │     └─ signup.ejs
+│  ├─ tsconfig.json
+│  └─ yarn.lock
+├─ docker-compose.yml
+├─ Dockerfile
+├─ frontend
+│  ├─ .eslintrc.json
+│  ├─ .vscode
+│  │  └─ settings.json
+│  ├─ app
+│  │  ├─ components
+│  │  │  ├─ Dropzone.tsx
+│  │  │  ├─ File.tsx
+│  │  │  ├─ FilesList.tsx
+│  │  │  ├─ ProgressBar.tsx
+│  │  │  └─ UploadingArea.tsx
+│  │  ├─ dashboard
+│  │  │  └─ page.tsx
+│  │  ├─ favicon.ico
+│  │  ├─ globals.css
+│  │  ├─ hooks
+│  │  │  ├─ index.ts
+│  │  │  └─ useUploadForm.ts
+│  │  ├─ layout.tsx
+│  │  ├─ login
+│  │  │  └─ page.tsx
+│  │  ├─ page.tsx
+│  │  ├─ types
+│  │  │  └─ index.ts
+│  │  └─ utils
+│  │     └─ index.ts
+│  ├─ next-env.d.ts
+│  ├─ next.config.js
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ postcss.config.js
+│  ├─ public
+│  │  ├─ next.svg
+│  │  └─ vercel.svg
+│  ├─ tailwind.config.js
+│  ├─ tsconfig.json
+│  └─ yarn.lock
+├─ package.json
+├─ README.md
+└─ yarn.lock
+
+```
