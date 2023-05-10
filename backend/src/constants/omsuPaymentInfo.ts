@@ -6,6 +6,8 @@
 // [5] CorrespAcc
 // These are optional: KPP, PayeeINN, CBC
 
+// https://omsu.ru/about/omsu_details/
+
 export const OMSU_PAYMENT_INFO = [
   {
     name: "Name",
@@ -18,7 +20,7 @@ export const OMSU_PAYMENT_INFO = [
   },
   { name: "BIC", value: "015209001" },
   { name: "CorrespAcc", value: "40102810245370000044" },
-  { name: "KPP", value: "550101001" },
+  // { name: "KPP", value: "550101001" },
   { name: "PayeeINN", value: "5501003925" },
   { name: "CBC", value: "00000000000000000130" },
 ];

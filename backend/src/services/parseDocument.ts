@@ -13,7 +13,9 @@ export const parseDocument = async (buffer: Buffer) => {
   const content = await extractTextFromBuffer(buffer);
   const extractedData = extractPaymentInfo(content);
 
-  const paymentInformation = [...OMSU_PAYMENT_INFO, ...extractedData];
+  // Initially, we thought to include OMSU payment information as constants, but data can change, so we decided to retrieve all the neccessary data with regExp
+  // const paymentInformation = [...OMSU_PAYMENT_INFO, ...extractedData];
+  const paymentInformation = [...extractedData];
 
   const paymentInfo = formatPaymentInfo(paymentInformation);
   return { paymentInfo, content };
