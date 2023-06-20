@@ -9,4 +9,10 @@ type PatternObject = {
   process?: (match: RegExpMatchArray) => string;
 };
 
+export enum DocumentTypes {
+  pdf = "application/pdf",
+  doc = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  docx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+}
+
 export type { PaymentInfo, PatternObject };

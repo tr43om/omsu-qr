@@ -9,7 +9,7 @@ export const extractPaymentInfo = (content: string): PaymentInfo[] => {
     // ⬇️ КАЗНАЧЕЙСКИЙ СЧЕТ
     {
       name: "PersonalAcc",
-      pattern: /Казначейский сч[ёе]т.*\s*\:\s*(\d{20})/i,
+      pattern: /Казначейский.*?\s*сч[ёе]т.*?\s*\:\s*(\d{20})/is,
     },
     // ⬇️ БАНК ПОЛУЧАТЕЛЯ
     createPrefixedRegex("BankName", "Банк получателя", ".*"),
@@ -18,7 +18,7 @@ export const extractPaymentInfo = (content: string): PaymentInfo[] => {
     // ⬇️ КДИНЫЙ КАЗНАЧЕЙСКИЙ СЧЕТ
     {
       name: "CorrespAcc",
-      pattern: /Единый казначейский сч[ёе]т.*\s*\:\s*(\d{20})/i,
+      pattern: /Единый.*?\s*казначейский.*?\s*сч[ёе]т.*?\s*\:\s*(\d{20})/is,
     },
     // ⬇️ КПП
     createPrefixedRegex("KPP", "КПП", ".*"),
@@ -39,15 +39,20 @@ export const extractPaymentInfo = (content: string): PaymentInfo[] => {
       },
     },
     // ⬇️ НОМЕР ДОГОВОРА
-    { name: "Contract", pattern: /(?<=договор)[\s\S]*№\s*(\d+)/i },
+    { name: "Contract", pattern: /(?:No|№)\s*(\d+)/i },
     // ⬇️ СУММА ОПЛАТЫ
     {
       name: "Sum",
-      pattern: /(?<=составляет)\s+(\d+(\.\d{2})?)/i,
+      pattern: /(?<=обучения составляет)\s+(\d.\s*\d+)/i,
     },
-
-    createPrefixedRegex("LastName", "Фамилия", ".*"),
-    createPrefixedRegex("FirstName", "Имя", ".*"),
+    {
+      name: "LastName",
+      pattern: /([А-Я]{1}[а-я]*\s)[А-Я]{1}[а-я]*\s[А-Я]{1}[а-я]*/,
+    },
+    {
+      name: "FirstName",
+      pattern: /[А-Я]{1}[а-я]*\s([А-Я]{1}[а-я]*\s)[А-Я]{1}[а-я]*/,
+    },
     createPrefixedRegex("PayerAddress", "Адрес", ".*"),
     createPrefixedRegex("PensAcc", "СНИЛС", ".*"),
     createPrefixedRegex("PayerIdNum", "Номер", ".*"),

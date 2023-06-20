@@ -16,6 +16,8 @@ import mysql from "mysql-await";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import validator from "express-validator";
+import { DocumentTypes } from "./types/index.js";
+import { addImageToPdf } from "./utils/attachQrToPdf.js";
 
 const app = express();
 app.use(cors());
@@ -56,27 +58,39 @@ app.post(
   upload.single("document"),
   async (req: Request, res: Response) => {
     const { buffer } = req.file as Express.Multer.File;
+    const fileType = req.file?.mimetype as string;
     try {
-      const { paymentInfo, content } = await parseDocument(buffer);
+      const { paymentInfo, content } = await parseDocument(buffer, fileType);
+
       const { svg, png } = await generateQR(paymentInfo);
+      let pdf = "";
 
-      // Convert buffer of document to html
-      const { html } = await convertDocxToHtml(buffer);
+      if (fileType === DocumentTypes.doc) {
+        // Convert buffer of document to html
+        const { html } = await convertDocxToHtml(buffer);
 
-      // Attach QR code at the end of the document and at the beginning of the document
-      attachQrToDocument(html, png);
+        // Attach QR code at the end of the document and at the beginning of the document
+        attachQrToDocument(html, png);
 
-      // Attach styles to the document
-      const style = html.createElement("style");
-      style.textContent = documentStyles;
-      html.head.appendChild(style);
+        // Attach styles to the document
+        const style = html.createElement("style");
+        style.textContent = documentStyles;
+        html.head.appendChild(style);
 
-      // Generate PDF using Puppeteer
-      const { pdfBuffer } = await generatePDF(html);
+        // Generate PDF using Puppeteer
+        const { pdfBuffer } = await generatePDF(html);
+        pdf = pdfBuffer.toString("base64");
+      } else if (fileType === DocumentTypes.pdf) {
+        console.log("pdf");
+        const modifiedPdfBytes = await addImageToPdf(buffer, png, 0, 0, 100);
+        console.log(modifiedPdfBytes);
+
+        pdf = Buffer.from(modifiedPdfBytes).toString("base64");
+      }
 
       res.json({
         qr: { svg, png },
-        pdf: pdfBuffer.toString("base64"),
+        pdf,
         paymentInfo,
         content,
       });

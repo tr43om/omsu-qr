@@ -11,7 +11,10 @@
     "build": "yarn --cwd frontend build && yarn --cwd backend build"
   },
   "dependencies": {
-    "concurrently": "^8.0.1"
+    "@types/pdf-parse": "^1.1.1",
+    "concurrently": "^8.0.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "typescript": "^5.0.4"
